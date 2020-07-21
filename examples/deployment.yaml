@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-console
+  labels:
+    process: console
+spec:
+  selector:
+    matchLabels:
+      process: console
+  template:
+    metadata:
+      generateName: console
+      labels:
+        process: console
+    spec:
+      containers:
+        - image: ubuntu
+          name: integration-rails-shell
+          command: ["/bin/bash"]
+          resources:
+            requests:
+              memory: "300Mi"
