@@ -5,3 +5,4 @@ manifests
 LICENSE
 .git
 .gitignore
+kubeconsole-controller

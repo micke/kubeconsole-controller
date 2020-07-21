@@ -20,7 +20,7 @@ COPY . .
 RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/kubeconsole-controller
 
 # Run
-FROM debian:buster AS runtime
+FROM gcr.io/distroless/base-debian10 AS runtime
 
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
