@@ -67,7 +67,7 @@ func main() {
 			timeout := heartbeat.Add(time.Minute * time.Duration(timeoutMinutes))
 
 			if time.Now().After(timeout) {
-				err := podsClient.Delete(context.TODO(), pod.Name, metav1.DeleteOptions{})
+				err := clientset.CoreV1().Pods(pod.Namespace).Delete(context.TODO(), pod.Name, metav1.DeleteOptions{})
 				if err != nil {
 					fmt.Printf("Error deleting pod(%s): %v\n", pod.Name, err)
 				} else {

@@ -13,7 +13,7 @@ spec:
     spec:
       serviceAccountName: kubeconsole-controller
       containers:
-        - image: lisinge/kubeconsole-controller:latest
+        - image: lisinge/kubeconsole-controller:v0.0.2
           name: kubeconsole-controller
           resources:
             requests:
