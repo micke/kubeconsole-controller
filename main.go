@@ -47,7 +47,7 @@ func main() {
 			panic(err.Error())
 		}
 
-		verboseLog("There are %d kubconsole pods in the cluster", len(pods.Items))
+		verboseLog("Found %d kubeconsole pods in the cluster", len(pods.Items))
 
 		for _, pod := range pods.Items {
 			verboseLog("Found pod %s", pod.Name)
@@ -64,17 +64,17 @@ func main() {
 				continue
 			}
 
-			timeout := heartbeat.Add(time.Minute * time.Duration(timeoutMinutes))
+			diff := int(time.Now().Sub(heartbeat).Minutes())
 
-			if time.Now().After(timeout) {
+			if diff >= timeoutMinutes {
 				err := clientset.CoreV1().Pods(pod.Namespace).Delete(context.TODO(), pod.Name, metav1.DeleteOptions{})
 				if err != nil {
 					fmt.Printf("Error deleting pod(%s): %v\n", pod.Name, err)
 				} else {
-					verboseLog("Deleted %s", pod.Name)
+					verboseLog("Deleted %s. %d/%d minutes old", pod.Name, diff, timeoutMinutes)
 				}
 			} else {
-				verboseLog("Skipping %s", pod.Name)
+				verboseLog("Skipping %s. %d/%d minutes old", pod.Name, diff, timeoutMinutes)
 			}
 		}
 
@@ -84,6 +84,6 @@ func main() {
 
 func verboseLog(format string, args ...interface{}) {
 	if verbose {
-		fmt.Printf(format+"\n", args)
+		fmt.Printf(format+"\n", args...)
 	}
 }
