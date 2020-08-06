@@ -5,6 +5,7 @@ metadata:
   labels:
     process: console
 spec:
+  replicas: 0
   selector:
     matchLabels:
       process: console
