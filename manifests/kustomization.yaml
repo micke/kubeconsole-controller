@@ -9,3 +9,7 @@ resources:
 - clusterrolebinding.yaml
 - deployment.yaml
 - serviceaccount.yaml
+
+images:
+  - name: micke/kubeconsole-controller
+    newTag: v1.0.0
