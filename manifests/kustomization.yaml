@@ -11,5 +11,5 @@ resources:
 - serviceaccount.yaml
 
 images:
-  - name: micke/kubeconsole-controller
+  - name: lisinge/kubeconsole-controller
     newTag: v1.0.0
